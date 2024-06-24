@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watchEffect } from 'vue'
 
 import { useRoute, type RouteMeta, type RouteRecordRaw } from 'vue-router'
 
@@ -43,15 +43,14 @@ function createMenu(children: RouteRecordRaw[], parentPath: string = ''): RouteM
     })
 }
 
-const handleOpen = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
-const handleClose = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
-
 onMounted(() => {
   defaultActive.value = route.path.slice(1)
+})
+
+watchEffect(() => {
+  if (route.path) {
+    defaultActive.value = route.path.slice(1)
+  }
 })
 </script>
 
@@ -62,8 +61,6 @@ onMounted(() => {
     :default-active="defaultActive"
     text-color="#fff"
     :router="true"
-    @open="handleOpen"
-    @close="handleClose"
   >
     <SidebarMenuItem v-for="item in menu" :key="item.path" :route="item" />
   </el-menu>

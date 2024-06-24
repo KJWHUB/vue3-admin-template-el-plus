@@ -55,7 +55,7 @@ function creacteBreadcrumb() {
   <el-breadcrumb separator="/">
     <el-breadcrumb-item :to="{ path: '/' }">
       <el-icon>
-        <House />
+        <HugeiconsHome06 />
       </el-icon>
     </el-breadcrumb-item>
     <!-- 현재라우터 에 active 효과 -->
