@@ -31,3 +31,4 @@ coverage
 
 # autu import
 components.d.ts
+auto-imports.d
