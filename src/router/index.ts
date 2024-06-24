@@ -1,16 +1,34 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 
-import HomeView from '../views/HomeView.vue'
+import { useAuthStore } from '@/stores/auth'
+import authRoute from '@/views/auth/route'
+import contentsRoute from '@/views/contents/route'
+
+declare module 'vue-router' {
+  interface RouteMeta {
+    menu?: {
+      title: string
+      icon: string
+    }
+  }
+}
+
+const routes: RouteRecordRaw[] = [contentsRoute, authRoute]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView
-    }
-  ]
+  routes
+})
+router.beforeEach((to, from) => {
+  const { isAuthenticated } = useAuthStore()
+  console.log('isAuthenticated', isAuthenticated)
+  if (!isAuthenticated && to.name !== 'login') {
+    return { name: 'login' }
+  }
+
+  if (isAuthenticated && to.name === 'login') {
+    return { name: 'home' }
+  }
 })
 
 export default router
