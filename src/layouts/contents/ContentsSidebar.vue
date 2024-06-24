@@ -1,10 +1,10 @@
 <script setup lang="ts"></script>
 
 <template>
-  <el-aside width="200px">
+  <div>
     <LogoBlock style="padding: 1rem" />
     <SidebarMenu />
-  </el-aside>
+  </div>
 </template>
 
 <style lang="scss" scoped>

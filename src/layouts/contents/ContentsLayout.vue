@@ -6,11 +6,17 @@ import ContentsSidebar from './ContentsSidebar.vue'
 <template>
   <div class="contents-layout">
     <el-container>
-      <ContentsSidebar />
+      <el-aside width="200px">
+        <ContentsSidebar />
+      </el-aside>
       <el-container>
-        <ContentsHeader />
+        <el-header style="padding: 0">
+          <ContentsHeader />
+        </el-header>
         <el-main>
-          <RouterView />
+          <el-card>
+            <RouterView />
+          </el-card>
         </el-main>
       </el-container>
     </el-container>

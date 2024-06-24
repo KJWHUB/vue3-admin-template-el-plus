@@ -17,7 +17,11 @@ const logoText = 'LOGO'
   gap: 1rem;
   img {
     width: auto;
-    max-height: 50px;
+    max-height: 30px;
+  }
+  h1 {
+    font-size: 1.3rem;
+    font-weight: bold;
   }
 }
 </style>
