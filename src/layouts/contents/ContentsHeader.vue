@@ -3,6 +3,7 @@ import { ref, watchEffect } from 'vue'
 
 import { useRoute } from 'vue-router'
 
+import LanguageSelector from '@/components/language-selector/LanguageSelector.vue'
 import contentsRoute from '@/views/contents/route'
 
 const route = useRoute()
@@ -13,44 +14,48 @@ const home = ref({
 })
 const items = ref([])
 
-watchEffect(() => {
-  if (route.path) {
-    creacteBreadcrumb()
-  }
-})
+// watchEffect(() => {
+//   if (route.path) {
+//     creacteBreadcrumb()
+//   }
+// })
 
-function creacteBreadcrumb() {
-  const paths = route.path.split('/').filter((path) => path)
-  const list = paths.map((path, index) => {
-    const findItem = () => {
-      for (const item of contentsRoute.children ?? []) {
-        if (item.path === path) {
-          return item
-        }
-        if (item.children) {
-          const find = item.children.find((child) => child.path === path)
-          if (find) {
-            return find
-          }
-        }
-      }
-    }
+// function creacteBreadcrumb() {
+//   const paths = route.path.split('/').filter((path) => path)
+//   const list = paths.map((path, index) => {
+//     const findItem = () => {
+//       for (const item of contentsRoute.children ?? []) {
+//         if (item.path === path) {
+//           return item
+//         }
+//         if (item.children) {
+//           const find = item.children.find((child) => child.path === path)
+//           if (find) {
+//             return find
+//           }
+//         }
+//       }
+//     }
 
-    const item = findItem()
+//     const item = findItem()
 
-    return {
-      label: item?.meta?.menu?.title || '',
-      // icon: item?.meta?.menu?.icon || '',
-      route: `/${paths.slice(0, index + 1).join('/')}`
-    }
-  })
+//     return {
+//       label: item?.meta?.menu?.title || '',
+//       // icon: item?.meta?.menu?.icon || '',
+//       route: `/${paths.slice(0, index + 1).join('/')}`
+//     }
+//   })
 
-  items.value = list
-}
+//   items.value = list
+// }
 </script>
 
 <template>
-  <header class="header"></header>
+  <el-header>
+    <!-- breadcrumb -->
+    <!-- lang -->
+    <LanguageSelector />
+  </el-header>
 </template>
 
 <style lang="scss" scoped>

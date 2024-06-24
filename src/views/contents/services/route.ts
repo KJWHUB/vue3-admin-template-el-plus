@@ -6,7 +6,7 @@ const servicesRoute: RouteRecordRaw = {
   meta: {
     menu: {
       title: 'services',
-      icon: 'pi pi-link'
+      icon: 'Service'
     }
   },
   redirect: { name: 'service01' },
@@ -17,8 +17,7 @@ const servicesRoute: RouteRecordRaw = {
       component: () => import('@/views/contents/services/service-01/Service01View.vue'),
       meta: {
         menu: {
-          title: 'Service 01',
-          icon: 'pi pi-link'
+          title: 'Service 01'
         }
       }
     },
@@ -28,8 +27,7 @@ const servicesRoute: RouteRecordRaw = {
       component: () => import('@/views/contents/services/service-02/Service02View.vue'),
       meta: {
         menu: {
-          title: 'Service 02',
-          icon: 'pi pi-link'
+          title: 'Service 02'
         }
       }
     },
@@ -39,8 +37,7 @@ const servicesRoute: RouteRecordRaw = {
       component: () => import('@/views/contents/services/service-03/Service03View.vue'),
       meta: {
         menu: {
-          title: 'Service 03',
-          icon: 'pi pi-link'
+          title: 'Service 03'
         }
       }
     }

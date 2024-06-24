@@ -17,7 +17,7 @@ const contentsRoute: RouteRecordRaw = {
       meta: {
         menu: {
           title: 'Dashboard',
-          icon: 'pi pi-link'
+          icon: 'Menu'
         }
       }
     },
@@ -28,7 +28,7 @@ const contentsRoute: RouteRecordRaw = {
       meta: {
         menu: {
           title: 'Users',
-          icon: 'pi pi-link'
+          icon: 'UserFilled'
         }
       }
     },
@@ -40,7 +40,7 @@ const contentsRoute: RouteRecordRaw = {
       meta: {
         menu: {
           title: 'Products',
-          icon: 'pi pi-link'
+          icon: 'StreamlineProductionBelt'
         }
       }
     }
