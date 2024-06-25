@@ -14,12 +14,15 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "st-json-server": "json-server --watch db.json --port 9000"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
     "@vueuse/core": "^10.11.0",
+    "axios": "^1.7.2",
     "element-plus": "^2.7.6",
+    "json-server": "^1.0.0-beta.1",
     "pinia": "^2.1.7",
     "sass": "^1.77.6",
     "vue": "^3.4.29",

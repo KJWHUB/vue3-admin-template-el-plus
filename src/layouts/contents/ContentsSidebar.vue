@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import LogoBlock from '@/components/logo/LogoBlock.vue'
+import SidebarMenu from '@/components/menu/SidebarMenu.vue'
 const headerHeight = 80
 </script>
 
@@ -16,6 +18,7 @@ const headerHeight = 80
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
 }
 </style>
