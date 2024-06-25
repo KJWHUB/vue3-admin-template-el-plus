@@ -15,9 +15,15 @@ const route = useRoute()
 
 const items = ref<BreadcrumbItem[]>([])
 
-watchEffect(() => {
+const isShow = ref(true)
+const delay = (s: number) => new Promise((resolve) => setTimeout(resolve, s))
+
+watchEffect(async () => {
   if (route.path) {
+    isShow.value = false
     creacteBreadcrumb()
+    await delay(300)
+    isShow.value = true
   }
 })
 
@@ -52,22 +58,23 @@ function creacteBreadcrumb() {
 </script>
 
 <template>
-  <el-breadcrumb separator="/">
-    <el-breadcrumb-item :to="{ path: '/' }">
-      <el-icon>
-        <HugeiconsHome06 />
-      </el-icon>
-    </el-breadcrumb-item>
-    <!-- 현재라우터 에 active 효과 -->
-    <el-breadcrumb-item v-for="item in items" :key="item.path" :to="{ path: item.path }">
-      <el-space>
-        <el-icon v-if="item.icon">
-          <component :is="item.icon" />
+  <Transition name="fade">
+    <el-breadcrumb v-if="isShow" separator="/">
+      <el-breadcrumb-item :to="{ path: '/' }">
+        <el-icon>
+          <HugeiconsHome06 />
         </el-icon>
-        {{ item.label }}
-      </el-space>
-    </el-breadcrumb-item>
-  </el-breadcrumb>
+      </el-breadcrumb-item>
+      <el-breadcrumb-item v-for="item in items" :key="item.path" :to="{ path: item.path }">
+        <el-space>
+          <el-icon v-if="item.icon">
+            <component :is="item.icon" />
+          </el-icon>
+          {{ item.label }}
+        </el-space>
+      </el-breadcrumb-item>
+    </el-breadcrumb>
+  </Transition>
 </template>
 
 <style scoped></style>

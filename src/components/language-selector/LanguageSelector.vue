@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 
-const { locale, availableLocales, messages } = useI18n()
+const { availableLocales, messages } = useI18n()
 
 const options = availableLocales.map((locale) => ({
   value: locale,
   label: messages.value[locale].locale
 }))
-
-console.log('options', options)
 </script>
 
 <template>

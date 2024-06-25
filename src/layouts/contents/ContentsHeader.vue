@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Fold } from '@element-plus/icons-vue'
 
+import HeaderBreadcrumb from '@/components/breadcrumb/HeaderBreadcrumb.vue'
 import LanguageSelector from '@/components/language-selector/LanguageSelector.vue'
 import HeaderUserAvatar from '@/components/user/HeaderUserAvatar.vue'
 import { useLayoutStore } from '@/stores/layout'

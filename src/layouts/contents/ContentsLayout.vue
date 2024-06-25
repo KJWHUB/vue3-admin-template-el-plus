@@ -21,9 +21,11 @@ const { sidebarWidth } = storeToRefs(layoutStore)
           <ContentsHeader />
         </el-header>
         <el-main>
-          <el-card>
-            <RouterView />
-          </el-card>
+          <router-view v-slot="{ Component }">
+            <transition name="fade" mode="out-in">
+              <component :is="Component" />
+            </transition>
+          </router-view>
         </el-main>
       </el-container>
     </el-container>
