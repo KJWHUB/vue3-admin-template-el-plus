@@ -1,16 +1,23 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
+
+import { useLayoutStore } from '@/stores/layout'
+
 import ContentsHeader from './ContentsHeader.vue'
 import ContentsSidebar from './ContentsSidebar.vue'
+
+const layoutStore = useLayoutStore()
+const { sidebarWidth } = storeToRefs(layoutStore)
 </script>
 
 <template>
   <div class="contents-layout">
     <el-container>
-      <el-aside width="200px">
+      <el-aside :width="sidebarWidth + 'px'" style="min-height: 100vh; transition: width 0.3s">
         <ContentsSidebar />
       </el-aside>
       <el-container>
-        <el-header style="padding: 0">
+        <el-header height="80px" style="padding: 0">
           <ContentsHeader />
         </el-header>
         <el-main>
