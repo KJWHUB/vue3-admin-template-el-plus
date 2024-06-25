@@ -22,6 +22,8 @@ const { toggleSidebarFold } = useLayoutStore()
       <HeaderBreadcrumb />
     </el-space>
     <el-space size="large">
+      <!-- search -->
+      <HeaderSearch />
       <!-- lang -->
       <LanguageSelector />
       <!-- user -->
