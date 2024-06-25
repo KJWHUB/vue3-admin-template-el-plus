@@ -2,3 +2,5 @@ export { default as StreamlineProductionBelt } from './StreamlineProductionBelt.
 export { default as HugeiconsHome06 } from './HugeiconsHome06.vue'
 export { default as UimSignout } from './UimSignout.vue'
 export { default as MaterialSymbolsPersonSearch } from './MaterialSymbolsPersonSearch.vue'
+export { default as SolarLockPasswordBold } from './SolarLockPasswordBold.vue'
+export { default as MaterialSymbolsVpnKeyRounded } from './MaterialSymbolsVpnKeyRounded.vue'

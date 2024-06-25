@@ -1,12 +1,31 @@
 <script setup lang="ts">
 import logoSrc from '@/assets/logo.svg'
 const logoText = 'LOGO'
+
+const props = withDefaults(
+  defineProps<{
+    logoType?: 'text' | 'image' | 'both'
+  }>(),
+  {
+    logoType: 'text'
+  }
+)
 </script>
 
 <template>
   <div class="logo">
-    <img :src="logoSrc" alt="logo" />
-    <h1>{{ logoText }}</h1>
+    <template v-if="props.logoType === 'both'">
+      <img :src="logoSrc" alt="logo" />
+      <h1>{{ logoText }}</h1>
+    </template>
+
+    <template v-else-if="props.logoType === 'text'">
+      <h1>{{ logoText }}</h1>
+    </template>
+
+    <template v-else-if="props.logoType === 'image'">
+      <img :src="logoSrc" alt="logo" />
+    </template>
   </div>
 </template>
 
