@@ -1,12 +1,37 @@
 <script setup lang="ts">
-import { reactive, toRaw, type Reactive } from 'vue'
+import { ref, toRaw, type Reactive } from 'vue'
 
 import { getUsers } from '@/api/modules/user'
-import TableViewWrap, { type TableViewData } from '@/components/view-wrap/TableViewWrap.vue'
+import TableViewWrap from '@/components/view-wrap/TableViewWrap.vue'
+import { useTableView, type Pageable } from '@/composables/useTableView'
+import { filterNonEmptyQueryParamsDeep } from '@/utils'
 
-const listQuery = reactive({
+import type { FormInstance } from 'element-plus'
+
+type UserItem = {
+  date: string
+  name: string
+  zip: string
+  state: string
+  city: string
+  address: string
+}
+
+const filterFormRef = ref<FormInstance>()
+
+const lQuery = {
   name: '',
   zip: ''
+}
+
+const { tableData, listQuery, pageQuery, resetFormAndFetch, fetchData } = useTableView<
+  typeof lQuery,
+  typeof getUsers,
+  UserItem
+>({
+  listQuery: lQuery,
+  fetchFn: getUsers,
+  formEl: filterFormRef
 })
 
 const tableColumns = [
@@ -18,31 +43,41 @@ const tableColumns = [
   { prop: 'address', label: 'Address', minWidth: 200 }
 ]
 
-const fetchRequest = () => {
-  return toRaw(listQuery)
+const requestHandler = (pQuery: Reactive<Pageable>, lQuery: Reactive<any>) => {
+  return Object.assign(
+    {},
+    {
+      _limit: pQuery.size,
+      _start: (pQuery.page - 1) * pQuery.size
+    },
+    filterNonEmptyQueryParamsDeep(toRaw(lQuery))
+  )
 }
 
-const fetchData = ({ res, tableData }: { res: any; tableData: Reactive<TableViewData> }) => {
-  console.log(res, tableData)
-  tableData.list = res
-  tableData.total = res.total
+const responseHandler = (
+  res: any
+): {
+  list: any[]
+  total: number
+} => {
+  return {
+    list: res,
+    total: 100
+  }
 }
 
-const resetFiled = () => {
-  listQuery.name = ''
-  listQuery.zip = ''
-}
+fetchData(requestHandler, responseHandler)
 </script>
 
 <template>
   <TableViewWrap
-    :fetchFn="getUsers"
-    :fetchRequest="fetchRequest"
+    v-model:page-query="pageQuery"
+    :table-data="tableData"
     @fetchData="fetchData"
-    @resetFiled="resetFiled"
+    @resetFormAndFetch="resetFormAndFetch"
   >
     <template #filter>
-      <el-form inline style="flex: 5">
+      <el-form ref="filterFormRef" inline>
         <el-form-item label="Name">
           <el-input v-model="listQuery.name" />
         </el-form-item>
@@ -56,13 +91,23 @@ const resetFiled = () => {
       <el-button type="primary" style="flex: 1; margin: 0">등록</el-button>
     </template>
 
-    <template #tableColumns>
-      <el-table-column
-        v-for="column in tableColumns"
-        :key="column.prop"
-        v-bind="column"
-        :align="'center'"
-      />
+    <template #table>
+      <el-table
+        v-loading="tableData.loading"
+        :data="tableData.list"
+        scrollbar-always-on
+        style="width: 100%"
+        border
+        :header-cell-style="{ backgroundColor: 'rgba(240, 248, 248, 1)', color: '#000' }"
+      >
+        <TableColumNo :page="pageQuery.page" :size="pageQuery.size" :total="tableData.total" />
+        <el-table-column
+          v-for="column in tableColumns"
+          :key="column.prop"
+          v-bind="column"
+          :align="'center'"
+        />
+      </el-table>
     </template>
   </TableViewWrap>
 </template>

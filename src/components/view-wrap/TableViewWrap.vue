@@ -1,85 +1,29 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { type PropType } from 'vue'
 
-interface Pageable {
-  page: number
-  size: number
-}
+import type { Pageable, TableViewData } from '@/composables/useTableView'
 
-export type TableViewData = {
-  list: any[]
-  total: number
-}
-
+const pageQueryModel = defineModel('pageQuery', {
+  type: Object as PropType<Pageable>,
+  required: true
+})
 const props = defineProps({
-  fetchFn: {
-    type: Function,
-    required: true,
-    default: () => {}
-  },
-  fetchRequest: {
-    type: Function,
-    required: false,
-    default: () => {}
-  },
-  fetchResponse: {
-    type: Function,
-    required: false,
-    default: (res: any) => res
+  tableData: {
+    type: Object as PropType<TableViewData<object>>,
+    required: true
   }
 })
+const emit = defineEmits(['fetchData', 'resetFormAndFetch'])
 
-const emit = defineEmits(['fetchData', 'resetFiled'])
-
-const tableData = reactive<TableViewData>({
-  list: [],
-  total: 0
-})
-
-const query = reactive<Pageable>({
-  page: 1,
-  size: 10
-})
-
-const tableDataLoading = ref(false)
-
-const fetchData = async () => {
-  tableDataLoading.value = true
-  try {
-    const req = {
-      _limit: query.size,
-      _start: (query.page - 1) * query.size
-    }
-
-    const requestAssign = Object.assign({}, req, props.fetchRequest())
-
-    const res = await props.fetchFn(requestAssign)
-    // tableData.list = props.fetchResponse(res)
-    // tableData.total = 100
-    emit('fetchData', { res, tableData })
-
-    console.log('목록 조회', res)
-  } catch (error) {
-    console.error(error)
-  } finally {
-    tableDataLoading.value = false
-  }
-}
-const resetFiled = () => {
-  query.page = 1
-  query.size = 10
-  emit('resetFiled')
-  fetchData()
+const resetFormAndFetch = () => {
+  pageQueryModel.value.page = 1
+  pageQueryModel.value.size = 10
+  emit('resetFormAndFetch')
 }
 
-const handleChange = (currentPage: number, pageSize: number) => {
-  console.log(currentPage, pageSize)
-  // query.page = currentPage
-  // query.size = pageSize
-  fetchData()
+const handleChange = (_currentPage: number, _pageSize: number) => {
+  emit('fetchData')
 }
-
-fetchData()
 </script>
 
 <template>
@@ -88,51 +32,49 @@ fetchData()
       <h1 class="title">{{ $route.meta.menu.title }}</h1>
     </template>
 
-    <el-row :gutter="20" style="margin: 30px 0 20px">
-      <el-col :span="18">
-        <el-card>
+    <el-card style="margin: 30px 0 20px">
+      <el-row :gutter="20">
+        <el-col :span="17">
           <slot name="filter"></slot>
-        </el-card>
-      </el-col>
-      <el-col :span="6">
-        <el-card>
+        </el-col>
+        <el-col :span="1" style="display: grid">
+          <el-divider direction="vertical" style="justify-self: center; height: 100%" />
+        </el-col>
+        <el-col :span="6">
           <div style="display: flex; flex-wrap: wrap; gap: 10px">
-            <el-button type="primary" icon="search" @click="fetchData" style="flex: 1">
+            <el-button
+              type="primary"
+              icon="search"
+              @click="emit('fetchData')"
+              style="flex-grow: 1; flex-basis: calc(50% - 10px)"
+            >
               조회
             </el-button>
-            <el-button icon="CarbonReset" @click="resetFiled" style="flex: 1"> 초기화 </el-button>
+            <el-button
+              icon="CarbonReset"
+              @click="resetFormAndFetch"
+              style="flex-grow: 1; flex-basis: calc(50% - 10px)"
+            >
+              초기화
+            </el-button>
             <slot name="action"></slot>
           </div>
-        </el-card>
-      </el-col>
-    </el-row>
+        </el-col>
+      </el-row>
+    </el-card>
 
     <!-- table -->
-    <el-table
-      :data="tableData.list"
-      scrollbar-always-on
-      style="width: 100%"
-      border
-      :header-cell-style="{ backgroundColor: 'rgba(240, 248, 248, 1)', color: '#000' }"
-      :loading="tableDataLoading"
-    >
-      <el-table-column label="No" :align="'center'">
-        <template #default="{ $index }">
-          <span>{{ tableData.total - ($index + 1 + (query.page - 1) * query.size) + 1 }}</span>
-        </template>
-      </el-table-column>
-      <slot name="tableColumns"> </slot>
-    </el-table>
+    <slot name="table"> </slot>
 
     <!-- pagination -->
     <div style="display: flex; justify-content: center; padding: 2rem">
       <el-pagination
-        v-model:page-size="query.size"
-        v-model:current-page="query.page"
+        v-model:page-size="pageQueryModel.size"
+        v-model:current-page="pageQueryModel.page"
         layout="total, prev, pager, next, sizes"
         background
         @change="handleChange"
-        :total="Number(tableData.total)"
+        :total="Number(props.tableData.total)"
       />
     </div>
   </el-card>
