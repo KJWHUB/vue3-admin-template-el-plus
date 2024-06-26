@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 
 import { useAuthStore } from '@/stores/auth'
+import type { ModState } from '@/utils/mod'
 import authRoute from '@/views/auth/route'
 import contentsRoute from '@/views/contents/route'
 
@@ -12,6 +13,7 @@ export type Menu = {
 declare module 'vue-router' {
   interface RouteMeta {
     menu?: Menu
+    modState?: ModState
   }
 }
 

@@ -2,6 +2,8 @@
 import { ref, toRaw, type Reactive } from 'vue'
 
 import { getUsers } from '@/api/modules/user'
+import TableColumDetailRouting from '@/components/table/TableColumDetailRouting.vue'
+import TableColumNo from '@/components/table/TableColumNo.vue'
 import TableViewWrap from '@/components/view-wrap/TableViewWrap.vue'
 import { useTableView, type Pageable } from '@/composables/useTableView'
 import { filterNonEmptyQueryParamsDeep } from '@/utils'
@@ -16,6 +18,9 @@ type UserItem = {
   city: string
   address: string
 }
+
+const createMod = 'user-register'
+const modifyMod = 'user-modify'
 
 const filterFormRef = ref<FormInstance>()
 
@@ -35,6 +40,7 @@ const { tableData, listQuery, pageQuery, resetFormAndFetch, fetchData } = useTab
 })
 
 const tableColumns = [
+  { prop: 'id', label: 'id', minWidth: 100 },
   { prop: 'date', label: 'Date', minWidth: 150 },
   { prop: 'name', label: 'Name' },
   { prop: 'zip', label: 'Zip' },
@@ -90,7 +96,13 @@ customFetchData()
     </template>
 
     <template #action>
-      <el-button type="primary" style="flex: 1; margin: 0">등록</el-button>
+      <el-button
+        type="primary"
+        style="flex: 1; margin: 0"
+        @click="$router.push({ name: createMod })"
+      >
+        등록
+      </el-button>
     </template>
 
     <template #table>
@@ -103,12 +115,16 @@ customFetchData()
         :header-cell-style="{ backgroundColor: 'rgba(240, 248, 248, 1)', color: '#000' }"
       >
         <TableColumNo :page="pageQuery.page" :size="pageQuery.size" :total="tableData.total" />
-        <el-table-column
-          v-for="column in tableColumns"
-          :key="column.prop"
-          v-bind="column"
-          :align="'center'"
-        />
+        <template v-for="column in tableColumns" :key="column.prop">
+          <TableColumDetailRouting
+            v-if="column.prop === 'id'"
+            v-bind="column"
+            cellLabelKey="id"
+            :align="'center'"
+            :createFarms="(row) => ({ name: modifyMod, params: { id: row.id } })"
+          />
+          <el-table-column v-else v-bind="column" :align="'center'" />
+        </template>
       </el-table>
     </template>
   </TableViewWrap>

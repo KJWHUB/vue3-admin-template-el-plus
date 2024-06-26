@@ -1,6 +1,7 @@
 import ContentsLayout from '@/layouts/contents/ContentsLayout.vue'
 
 import servicesRoute from './services/route'
+import usersRoute from './users/route'
 
 import type { RouteRecordRaw } from 'vue-router'
 
@@ -21,17 +22,7 @@ const contentsRoute: RouteRecordRaw = {
         }
       }
     },
-    {
-      path: 'users',
-      name: 'users',
-      component: () => import('@/views/contents/users/UsersView.vue'),
-      meta: {
-        menu: {
-          title: 'Users',
-          icon: 'UserFilled'
-        }
-      }
-    },
+    usersRoute,
     servicesRoute,
     {
       path: 'products',
