@@ -9,13 +9,25 @@ import CustomComponentsUsePlugin from './plugins/custom/src-components-icons_use
 import elementPlus from './plugins/element-plus'
 import { i18n } from './plugins/i18n'
 import router from './router'
+import { useCommonCodeStore } from './stores/commonCode'
 
-const app = createApp(App)
+const customAsyncAppUse = async () => {
+  const { setupCode } = useCommonCodeStore()
+  await setupCode()
+}
 
-app.use(i18n)
-app.use(createPinia())
-app.use(router)
-app.use(elementPlus)
-app.use(CustomComponentsUsePlugin)
+const init = async () => {
+  const app = createApp(App)
 
-app.mount('#app')
+  app.use(i18n)
+  app.use(createPinia())
+
+  await customAsyncAppUse()
+
+  app.use(router)
+  app.use(elementPlus)
+  app.use(CustomComponentsUsePlugin)
+
+  app.mount('#app')
+}
+init()
