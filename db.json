@@ -29,8 +29,9 @@
       "name": "John Brown 0",
       "zip": 1000,
       "state": "New York",
-      "city": "New York City",
+      "city": "New York City up",
       "address": "New York No. 0 Lake Park",
+      "modifiedAt": "2024-06-26T08:51:43.784Z",
       "id": "760e"
     },
     {

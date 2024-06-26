@@ -78,8 +78,8 @@ export const useFormDetailView = <TFormData>({
   }
 
   async function requestFetch(
-    requestApi: (req: any) => Promise<any>,
-    requestConverter: (formData: TFormData) => object | Promise<object>
+    requestApi: (...req: any) => Promise<any>,
+    requestConverter: (formData: TFormData) => any | Promise<any>
   ) {
     try {
       // form 유효성 검사
@@ -92,7 +92,7 @@ export const useFormDetailView = <TFormData>({
       const request = await requestConverter(toRaw(formData) as TFormData)
 
       // API 호출
-      await requestApi(request)
+      await requestApi(...request)
     } catch (error) {
       console.error(error)
       ElMessage({

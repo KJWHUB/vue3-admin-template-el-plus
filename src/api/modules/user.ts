@@ -7,7 +7,7 @@ export const getUsers = async (params: any) => {
 }
 
 // 유저 상세 조회
-export const getUser = async (id: number) => {
+export const getUser = async (id: string) => {
   const response = await instance.get(`/users/${id}`)
   return response.data
 }
@@ -20,7 +20,7 @@ export const registerUser = async (data: any) => {
 }
 
 // 유저 수정
-export const modifyUser = async (id: number, data: any) => {
+export const modifyUser = async (id: string, data: any) => {
   const response = await instance.put(`/users/${id}`, data)
   return response.data
 }

@@ -2,9 +2,11 @@
 import { computed, reactive, ref } from 'vue'
 
 import { type FormInstance } from 'element-plus'
+import { useRoute } from 'vue-router'
 
-import { modifyUser, registerUser } from '@/api/modules/user'
+import { getUser, modifyUser, registerUser } from '@/api/modules/user'
 import FormDetailViewWrap from '@/components/view-wrap/FormDetailViewWrap.vue'
+import { useDetailResponse } from '@/composables/useDetailResponse'
 import { useFormDetailView } from '@/composables/useFormDetailView'
 import { useMod } from '@/composables/useMod'
 
@@ -17,6 +19,7 @@ type FormData = {
   address: string
 }
 
+const route = useRoute()
 const { mod } = useMod()
 
 const formRef = ref<FormInstance>()
@@ -44,16 +47,19 @@ const requestRegisterConverter = (data: FormData) => {
 // 수정 컨버터
 const requestModifyConverter = (data: FormData) => {
   // 수정 컨버터에서 커스텀 로직 추가 가능
-  return {
-    date: data.date,
-    name: data.name,
-    zip: data.zip,
-    state: data.state,
-    city: data.city,
-    address: data.address,
-    // 예시: 수정 시 추가되는 필드
-    modifiedAt: new Date().toISOString()
-  }
+  return [
+    route.params.id,
+    {
+      date: data.date,
+      name: data.name,
+      zip: data.zip,
+      state: data.state,
+      city: data.city,
+      address: data.address,
+      // 예시: 수정 시 추가되는 필드
+      modifiedAt: new Date().toISOString()
+    }
+  ]
 }
 
 // API 함수 매핑
@@ -74,6 +80,21 @@ const { handleAction } = useFormDetailView<FormData>({
   modInfo: requestFunctions
 })
 
+const responseHandler = (response: any) => {
+  formData.date = response.date
+  formData.name = response.name
+  formData.zip = response.zip
+  formData.state = response.state
+  formData.city = response.city
+  formData.address = response.address
+}
+
+const { loading } = useDetailResponse({
+  getApi: getUser,
+  request: route.params.id as string,
+  responseHandler
+})
+
 const testAdd = () => {
   formData.date = '2021-09-01'
   formData.name = 'John Doe'
@@ -87,7 +108,13 @@ const testAdd = () => {
 <template>
   <FormDetailViewWrap :mod="mod" @handleClick="handleAction">
     <el-button @click="testAdd">Add Test Data</el-button>
-    <el-form ref="formRef" :model="formData" label-position="left" label-width="150px">
+    <el-form
+      v-loading="loading"
+      ref="formRef"
+      :model="formData"
+      label-position="left"
+      label-width="150px"
+    >
       <el-form-item label="Date" prop="date">
         <el-input v-model="formData.date" />
       </el-form-item>
