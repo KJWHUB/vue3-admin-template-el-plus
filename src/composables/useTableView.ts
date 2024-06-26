@@ -68,7 +68,7 @@ export const useTableView = <
 
       const res = await fetchFn(request)
 
-      await delay(1000 * 4)
+      await delay(1000 * 1)
 
       const { list, total } = responseHandler(res) // 커스텀 가능한 responseHandler 사용
 

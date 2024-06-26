@@ -32,7 +32,7 @@ const handleChange = (_currentPage: number, _pageSize: number) => {
       <h1 class="title">{{ $route.meta.menu.title }}</h1>
     </template>
 
-    <el-card style="margin: 30px 0 20px">
+    <el-card style="margin: 30px 0 20px" shadow="hover">
       <el-row :gutter="20">
         <el-col :span="17">
           <slot name="filter"></slot>

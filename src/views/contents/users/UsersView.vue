@@ -66,14 +66,16 @@ const responseHandler = (
   }
 }
 
-fetchData(requestHandler, responseHandler)
+const customFetchData = () => fetchData(requestHandler, responseHandler)
+
+customFetchData()
 </script>
 
 <template>
   <TableViewWrap
     v-model:page-query="pageQuery"
     :table-data="tableData"
-    @fetchData="fetchData"
+    @fetchData="customFetchData"
     @resetFormAndFetch="resetFormAndFetch"
   >
     <template #filter>
