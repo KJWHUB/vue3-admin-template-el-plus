@@ -2,7 +2,7 @@
 
 <template>
   <main>
-    <h1>Product</h1>
+    <h1>service 02</h1>
   </main>
 </template>
 

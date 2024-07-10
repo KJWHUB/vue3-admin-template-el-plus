@@ -1,0 +1,14 @@
+import { redirectToFirstChild } from '@/pages'
+
+import { route as service01 } from './service-01'
+import { route as service02 } from './service-02'
+import { route as service03 } from './service-03'
+
+import type { RouteRecordRaw } from 'vue-router'
+
+export const route: RouteRecordRaw = {
+  path: '/',
+  name: 'services',
+  redirect: redirectToFirstChild,
+  children: [service01, service02, service03]
+}

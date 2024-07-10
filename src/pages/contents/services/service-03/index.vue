@@ -1,9 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <el-card>
-    <h1>Dashboard</h1>
-  </el-card>
+  <main>
+    <h1>service 03</h1>
+  </main>
 </template>
 
 <style scoped></style>
