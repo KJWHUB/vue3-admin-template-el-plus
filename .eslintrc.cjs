@@ -35,13 +35,13 @@ module.exports = {
             position: 'before'
           },
           {
-            pattern: '@@/**',
-            group: 'internal',
-            position: 'after'
+            pattern: '@@**',
+            group: 'internal'
           },
           {
             pattern: '@/**',
-            group: 'internal'
+            group: 'internal',
+            position: 'after'
           }
         ],
         pathGroupsExcludedImportTypes: ['vue'],
@@ -53,6 +53,7 @@ module.exports = {
       }
     ]
   },
+
   settings: {
     'import/resolver': {
       node: {
