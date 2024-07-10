@@ -9,6 +9,9 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    port: 3000
+  },
   plugins: [
     vue(),
     vueDevTools(),
@@ -21,6 +24,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
+      '@stores': fileURLToPath(new URL('./src/app/providers/store/modules', import.meta.url)),
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   }

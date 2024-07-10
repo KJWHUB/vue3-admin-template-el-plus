@@ -1,3 +1,4 @@
+import { useAuthStore } from '@stores'
 import { createRouter, createWebHistory } from 'vue-router'
 
 import { routes } from '@/pages'
@@ -7,12 +8,12 @@ export const router = createRouter({
   routes
 })
 
-// router.beforeEach((to) => {
-// const { isAuthenticated } = useAuthStore()
-// if (!isAuthenticated && to.name !== 'login') {
-//   return { name: 'login' }
-// }
-// if (isAuthenticated && to.name === 'login') {
-//   return { name: 'home' }
-// }
-// })
+router.beforeEach((to) => {
+  const { isAuthenticated } = useAuthStore()
+  if (!isAuthenticated && to.name !== 'login') {
+    return { name: 'login' }
+  }
+  if (isAuthenticated && to.name === 'login') {
+    return { name: 'home' }
+  }
+})
