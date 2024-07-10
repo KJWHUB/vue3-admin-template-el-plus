@@ -24,8 +24,8 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@stores': fileURLToPath(new URL('./src/app/providers/store/modules', import.meta.url)),
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@@stores': fileURLToPath(new URL('./src/app/providers/store/modules', import.meta.url))
     }
   }
 })

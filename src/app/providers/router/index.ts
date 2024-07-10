@@ -1,4 +1,4 @@
-import { useAuthStore } from '@stores'
+import { useAuthStore } from '@@stores'
 import { createRouter, createWebHistory } from 'vue-router'
 
 import { routes } from '@/pages'

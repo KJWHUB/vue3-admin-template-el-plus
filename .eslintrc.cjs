@@ -35,6 +35,11 @@ module.exports = {
             position: 'before'
           },
           {
+            pattern: '@@/**',
+            group: 'internal',
+            position: 'after'
+          },
+          {
             pattern: '@/**',
             group: 'internal'
           }
