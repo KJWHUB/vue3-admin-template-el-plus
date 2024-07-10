@@ -14,6 +14,7 @@ module.exports = {
   },
   plugins: ['import'],
   rules: {
+    'vue/multi-word-component-names': 'off',
     'import/order': [
       'error',
       {
