@@ -5,6 +5,7 @@ import Routing from './index.vue'
 import type { RouteLocation, RouteLocationRaw, RouteRecordRaw } from 'vue-router'
 
 export const redirectToFirstChild: (to: RouteLocation) => RouteLocationRaw = (to) => {
+  console.log(`redirecting to first child of`, to)
   const lastMatched = to.matched[to.matched.length - 1]
   const firstChild = lastMatched.children?.[0]
 
@@ -13,11 +14,13 @@ export const redirectToFirstChild: (to: RouteLocation) => RouteLocationRaw = (to
     return { path: to.path }
   }
 
+  console.log(`result path: ${to.path}/${firstChild.path}`)
+
   return { path: `${to.path}/${firstChild.path}` }
 }
 
 export const routes: RouteRecordRaw[] = [
-  { path: '/', name: 'home', redirect: redirectToFirstChild, children: contentsRoutes },
+  { path: '/', name: 'home', redirect: { name: 'dashboard' }, children: contentsRoutes },
   authRoute
 ]
 

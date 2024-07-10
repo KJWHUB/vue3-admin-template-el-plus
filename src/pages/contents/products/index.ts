@@ -1,7 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 
 export const route: RouteRecordRaw = {
-  path: '/',
+  path: 'products',
   name: 'products',
   component: () => import('@/pages/contents/products/index.vue')
 }
