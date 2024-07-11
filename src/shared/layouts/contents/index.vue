@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 
-import { useLayoutStore } from '@@stores'
+import { useLayoutStore } from '@/shared/stores'
 
 import ContentsHeader from './ContentsHeader.vue'
 import ContentsSidebar from './ContentsSidebar.vue'

@@ -1,9 +1,9 @@
 import { computed } from 'vue'
 
 import { useStorage } from '@vueuse/core'
+import { defineStore } from 'pinia'
 
-// Define state and actions for authentication
-export const useAuthState = () => {
+export const useAuthStore = defineStore('auth', () => {
   const token = useStorage('access-token', '')
   const rememberInfo = useStorage('rememberInfo', { id: '' })
 
@@ -19,4 +19,4 @@ export const useAuthState = () => {
   }
 
   return { isAuthenticated, rememberInfo, hasRememberInfo, updateToken, updateRememberInfo }
-}
+})

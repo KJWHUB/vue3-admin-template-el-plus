@@ -8,8 +8,7 @@
     "baseUrl": ".",
     "types": ["element-plus/global"],
     "paths": {
-      "@/*": ["./src/*"],
-      "@@stores": ["src/app/providers/store/modules"]
+      "@/*": ["./src/*"]
     }
   }
 }
