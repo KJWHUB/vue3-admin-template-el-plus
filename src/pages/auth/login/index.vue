@@ -1,7 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { LoginCard } from '@/features/auth'
+</script>
 
 <template>
-  <main class="login-view">login</main>
+  <main class="login-view">
+    <LoginCard />
+  </main>
 </template>
 
 <style scoped>
