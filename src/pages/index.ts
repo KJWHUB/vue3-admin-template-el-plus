@@ -1,26 +1,19 @@
+import ContentsLayout from '@/shared/layouts/contents/index.vue'
+
 import { route as authRoute } from './auth'
 import { routes as contentsRoutes } from './contents'
 import Routing from './index.vue'
 
-import type { RouteLocation, RouteLocationRaw, RouteRecordRaw } from 'vue-router'
-
-export const redirectToFirstChild: (to: RouteLocation) => RouteLocationRaw = (to) => {
-  console.log(`redirecting to first child of`, to)
-  const lastMatched = to.matched[to.matched.length - 1]
-  const firstChild = lastMatched.children?.[0]
-
-  if (!firstChild) {
-    console.warn(`No child routes found for ${to.path}`)
-    return { path: to.path }
-  }
-
-  console.log(`result path: ${to.path}/${firstChild.path}`)
-
-  return { path: `${to.path}/${firstChild.path}` }
-}
+import type { RouteRecordRaw } from 'vue-router'
 
 export const routes: RouteRecordRaw[] = [
-  { path: '/', name: 'home', redirect: { name: 'dashboard' }, children: contentsRoutes },
+  {
+    path: '/',
+    name: 'home',
+    component: ContentsLayout,
+    redirect: { name: 'dashboard' },
+    children: contentsRoutes
+  },
   authRoute
 ]
 

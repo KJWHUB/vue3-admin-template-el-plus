@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { Fold } from '@element-plus/icons-vue'
 
-import HeaderBreadcrumb from '@/components/breadcrumb/HeaderBreadcrumb.vue'
-import LanguageSelector from '@/components/language-selector/LanguageSelector.vue'
-import HeaderUserAvatar from '@/components/user/HeaderUserAvatar.vue'
-import { useLayoutStore } from '@/stores/layout'
+import { useLayoutStore } from '@@stores'
+
+// import HeaderBreadcrumb from '@/components/breadcrumb/HeaderBreadcrumb.vue'
+// import LanguageSelector from '@/components/language-selector/LanguageSelector.vue'
+// import HeaderUserAvatar from '@/components/user/HeaderUserAvatar.vue'
 
 const { toggleSidebarFold } = useLayoutStore()
 </script>
@@ -19,15 +20,15 @@ const { toggleSidebarFold } = useLayoutStore()
         </el-icon>
       </el-button>
       <!-- breadcrumb -->
-      <HeaderBreadcrumb />
+      <!-- <HeaderBreadcrumb /> -->
     </el-space>
     <el-space size="large">
       <!-- search -->
-      <HeaderSearch />
+      <!-- <HeaderSearch /> -->
       <!-- lang -->
-      <LanguageSelector />
+      <!-- <LanguageSelector /> -->
       <!-- user -->
-      <HeaderUserAvatar />
+      <!-- <HeaderUserAvatar /> -->
     </el-space>
   </div>
 </template>
