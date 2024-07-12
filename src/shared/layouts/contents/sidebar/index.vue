@@ -1,12 +1,12 @@
 <script setup lang="ts">
-// import LogoBlock from '@/components/logo/LogoBlock.vue'
+import Logo from '@/shared/components/logo/index.vue'
 // import SidebarMenu from '@/components/menu/SidebarMenu.vue'
 const headerHeight = 80
 </script>
 
 <template>
   <div class="contents-sidebar">
-    <!-- <LogoBlock :style="{ height: headerHeight + 'px', flexShrink: 0 }" /> -->
+    <Logo :style="{ height: headerHeight + 'px', flexShrink: 0 }" />
 
     <!-- <SidebarMenu style="width: 100%" /> -->
   </div>
