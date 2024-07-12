@@ -1,7 +1,7 @@
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
 
-import { auth } from '@/shared/api/json-server'
+import { jsonServer } from '@/shared/api'
 import { useAuthStore } from '@/shared/stores'
 
 import type { LoginForm } from '../model'
@@ -16,12 +16,10 @@ export const useAuth = () => {
 
   return {
     login: async (form: LoginForm) => {
-      console.log(form)
-
       if (form.remember) rememberIdPassword(form.username)
 
       try {
-        const res = await auth.getAuthenticate({
+        const res = await jsonServer.auth.getAuthenticate({
           username: form.username,
           password: form.password
         })
