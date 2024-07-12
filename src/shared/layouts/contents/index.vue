@@ -3,8 +3,8 @@ import { storeToRefs } from 'pinia'
 
 import { useLayoutStore } from '@/shared/stores'
 
-import ContentsHeader from './ContentsHeader.vue'
-import ContentsSidebar from './ContentsSidebar.vue'
+import ContentsHeader from './header/index.vue'
+import ContentsSidebar from './sidebar/index.vue'
 
 const layoutStore = useLayoutStore()
 const { sidebarWidth } = storeToRefs(layoutStore)

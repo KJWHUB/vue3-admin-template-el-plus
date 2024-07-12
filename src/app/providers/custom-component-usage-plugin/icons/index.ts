@@ -5,3 +5,4 @@ export { default as MaterialSymbolsPersonSearch } from './MaterialSymbolsPersonS
 export { default as SolarLockPasswordBold } from './SolarLockPasswordBold.vue'
 export { default as MaterialSymbolsVpnKeyRounded } from './MaterialSymbolsVpnKeyRounded.vue'
 export { default as CarbonReset } from './CarbonReset.vue'
+export { default as MdiTranslate } from './MdiTranslate.vue'

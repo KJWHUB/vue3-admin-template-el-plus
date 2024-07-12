@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { Fold } from '@element-plus/icons-vue'
 
+import LanguageSelector from '@/shared/components/language-selector/LanguageSelector.vue'
 import { useLayoutStore } from '@/shared/stores'
 
 // import HeaderBreadcrumb from '@/components/breadcrumb/HeaderBreadcrumb.vue'
-// import LanguageSelector from '@/components/language-selector/LanguageSelector.vue'
-// import HeaderUserAvatar from '@/components/user/HeaderUserAvatar.vue'
+import HeaderUserAvatar from './HeaderUserAvatar.vue'
 
 const { toggleSidebarFold } = useLayoutStore()
 </script>
@@ -26,9 +26,9 @@ const { toggleSidebarFold } = useLayoutStore()
       <!-- search -->
       <!-- <HeaderSearch /> -->
       <!-- lang -->
-      <!-- <LanguageSelector /> -->
+      <LanguageSelector />
       <!-- user -->
-      <!-- <HeaderUserAvatar /> -->
+      <HeaderUserAvatar />
     </el-space>
   </div>
 </template>

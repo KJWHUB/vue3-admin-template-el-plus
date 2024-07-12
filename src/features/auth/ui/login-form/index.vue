@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, reactive } from 'vue'
 
+import { useAuth } from '@/features/auth'
 import { useAuthStore } from '@/shared/stores'
 
 export type LoginForm = {
@@ -10,11 +11,7 @@ export type LoginForm = {
 }
 
 const { hasRememberInfo, rememberInfo } = useAuthStore()
-const { login } = {
-  login: (form: LoginForm) => {
-    console.log('login', form)
-  }
-}
+const { login } = useAuth()
 
 const form = reactive<LoginForm>({
   username: '',
