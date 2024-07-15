@@ -6,7 +6,7 @@ export const route: RouteRecordRaw = {
   component: () => import('@/pages/contents/services/service-02/index.vue'),
   meta: {
     menu: {
-      title: 'Dashboard',
+      title: 'Services02',
       hidden: true
     }
   }

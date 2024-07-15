@@ -6,7 +6,7 @@ export const route: RouteRecordRaw = {
   component: () => import('@/pages/contents/services/service-03/index.vue'),
   meta: {
     menu: {
-      title: 'Services 03'
+      title: 'Services03'
     }
   }
 }
