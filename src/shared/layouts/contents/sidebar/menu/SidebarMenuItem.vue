@@ -3,7 +3,7 @@ import { resolveComponent, type PropType } from 'vue'
 
 import { SemiSelect } from '@element-plus/icons-vue'
 
-import { translateMenuTitle } from '@/utils'
+// import { translateMenuTitle } from '@/utils'
 
 import type { RouteMenuRequireRaw } from './SidebarMenu.vue'
 
@@ -42,7 +42,8 @@ const dynamicIcon = resolveDynamicComponent(icon || '')
       <el-icon>
         <component :is="dynamicIcon" />
       </el-icon>
-      <span>{{ translateMenuTitle(title) }}</span>
+      <!-- <span>{{ translateMenuTitle(title) }}</span> -->
+      <span>{{ title }}</span>
     </template>
     <SidebarMenuItem v-for="item in route.children" :key="item.path" :route="item" />
   </el-sub-menu>
@@ -50,7 +51,8 @@ const dynamicIcon = resolveDynamicComponent(icon || '')
     <el-icon>
       <component :is="dynamicIcon" />
     </el-icon>
-    <span>{{ translateMenuTitle(title) }}</span>
+    <!-- <span>{{ translateMenuTitle(title) }}</span> -->
+    <span>{{ title }}</span>
   </el-menu-item>
 </template>
 

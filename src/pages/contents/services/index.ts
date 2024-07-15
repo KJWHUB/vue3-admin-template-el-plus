@@ -8,5 +8,10 @@ export const route: RouteRecordRaw = {
   path: 'services',
   name: 'services',
   redirect: { name: 'service-01' },
+  meta: {
+    menu: {
+      title: 'Services'
+    }
+  },
   children: [service01, service02, service03]
 }

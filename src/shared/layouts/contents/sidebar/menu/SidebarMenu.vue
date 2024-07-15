@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 
 import { storeToRefs } from 'pinia'
-import { useRoute, type RouteMeta, type RouteRecordRaw } from 'vue-router'
+import { useRoute, useRouter, type RouteMeta, type RouteRecordRaw } from 'vue-router'
 
-import SidebarMenuItem from '@/components/menu/SidebarMenuItem.vue'
-import type { Menu } from '@/router'
-import { useLayoutStore } from '@/stores/layout'
-import contentsRoute from '@/views/contents/route'
+import type { Menu } from '@/app/providers/router/meta'
+import { useLayoutStore } from '@/shared/stores'
+
+import SidebarMenuItem from './SidebarMenuItem.vue'
 
 export type RouteMenuRequireRaw = RouteRecordRaw & {
   meta: RouteMeta & {
@@ -18,13 +18,12 @@ export type RouteMenuRequireRaw = RouteRecordRaw & {
   children?: RouteMenuRequireRaw[]
 }
 
-const contentsRouteChildren = contentsRoute.children as RouteRecordRaw[]
-
 const route = useRoute()
+const router = useRouter()
 const layoutStore = useLayoutStore()
 const { isSidebarFold } = storeToRefs(layoutStore)
 
-const menu = ref<RouteMenuRequireRaw[]>(createMenu(contentsRouteChildren))
+const menu = ref<RouteMenuRequireRaw[]>([])
 
 const defaultActive = computed(() => {
   const pathParts = route.path.slice(1).split('/')
@@ -43,15 +42,12 @@ const defaultActive = computed(() => {
 
       if (isMatch) {
         if (depth === pathParts.length - 1 || !item.children?.length) {
-          // 현재 항목이 사이드바에 표시되는 경우
           if (item.meta?.menu && !item.meta.menu.hidden) {
             return item.meta.menu.fullPath
           }
-          // 현재 항목이 숨겨져 있는 경우, 부모 항목의 fullPath 반환
           return parentItem?.meta.menu.fullPath || ''
         }
 
-        // 경로의 다음 부분으로 이동
         if (item.children?.length) {
           const result = findActiveMenu(item.children, depth + 1, item)
           if (result) return result
@@ -87,6 +83,13 @@ function createMenu(children: RouteRecordRaw[], parentPath: string = ''): RouteM
       }
     })
 }
+
+onMounted(() => {
+  const contentsRoute = router.options.routes.find((r) => r.name === 'home')
+  if (contentsRoute && contentsRoute.children) {
+    menu.value = createMenu(contentsRoute.children as RouteRecordRaw[])
+  }
+})
 </script>
 
 <template>

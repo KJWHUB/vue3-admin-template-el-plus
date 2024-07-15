@@ -3,7 +3,8 @@ import { storeToRefs } from 'pinia'
 
 import Logo from '@/shared/components/logo/index.vue'
 import { useLayoutStore } from '@/shared/stores'
-// import SidebarMenu from '@/components/menu/SidebarMenu.vue'
+
+import SidebarMenu from './menu/SidebarMenu.vue'
 
 const layoutStore = useLayoutStore()
 const { headerHeight } = storeToRefs(layoutStore)
@@ -13,7 +14,7 @@ const { headerHeight } = storeToRefs(layoutStore)
   <div class="contents-sidebar">
     <Logo :style="{ height: headerHeight + 'px', flexShrink: 0 }" />
 
-    <!-- <SidebarMenu style="width: 100%" /> -->
+    <SidebarMenu style="width: 100%" />
   </div>
 </template>
 
