@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
+
 import { Fold } from '@element-plus/icons-vue'
 
 import LanguageSelector from '@/shared/components/language-selector/LanguageSelector.vue'
@@ -7,11 +9,20 @@ import { useLayoutStore } from '@/shared/stores'
 // import HeaderBreadcrumb from '@/components/breadcrumb/HeaderBreadcrumb.vue'
 import HeaderUserAvatar from './HeaderUserAvatar.vue'
 
-const { toggleSidebarFold } = useLayoutStore()
+const layoutStore = useLayoutStore()
+const { toggleSidebarFold, setHeaderHeight } = layoutStore
+
+const headerRef = ref<HTMLElement | null>(null)
+
+onMounted(() => {
+  if (headerRef.value) {
+    setHeaderHeight(headerRef.value.offsetHeight)
+  }
+})
 </script>
 
 <template>
-  <div class="header">
+  <div ref="headerRef" class="header">
     <el-space size="large">
       <!-- fold -->
       <el-button text @click="toggleSidebarFold">

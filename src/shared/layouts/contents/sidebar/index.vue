@@ -1,7 +1,12 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
+
 import Logo from '@/shared/components/logo/index.vue'
+import { useLayoutStore } from '@/shared/stores'
 // import SidebarMenu from '@/components/menu/SidebarMenu.vue'
-const headerHeight = 80
+
+const layoutStore = useLayoutStore()
+const { headerHeight } = storeToRefs(layoutStore)
 </script>
 
 <template>

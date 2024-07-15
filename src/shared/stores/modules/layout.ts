@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 
 export const useLayoutStore = defineStore('layout', () => {
   const isSidebarFold = ref(false)
+  const headerHeight = ref(80)
   const sidebarWidth = ref(200)
 
   const toggleSidebarFold = () => {
@@ -16,5 +17,9 @@ export const useLayoutStore = defineStore('layout', () => {
     }
   }
 
-  return { isSidebarFold, sidebarWidth, toggleSidebarFold }
+  const setHeaderHeight = (height: number) => {
+    headerHeight.value = height
+  }
+
+  return { isSidebarFold, sidebarWidth, headerHeight, toggleSidebarFold, setHeaderHeight }
 })
