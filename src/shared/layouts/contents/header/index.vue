@@ -6,7 +6,7 @@ import { Fold } from '@element-plus/icons-vue'
 import LanguageSelector from '@/shared/components/language-selector/LanguageSelector.vue'
 import { useLayoutStore } from '@/shared/stores'
 
-// import HeaderBreadcrumb from '@/components/breadcrumb/HeaderBreadcrumb.vue'
+import HeaderBreadcrumb from './HeaderBreadcrumb.vue'
 import HeaderUserAvatar from './HeaderUserAvatar.vue'
 
 const layoutStore = useLayoutStore()
@@ -31,7 +31,7 @@ onMounted(() => {
         </el-icon>
       </el-button>
       <!-- breadcrumb -->
-      <!-- <HeaderBreadcrumb /> -->
+      <HeaderBreadcrumb />
     </el-space>
     <el-space size="large">
       <!-- search -->
