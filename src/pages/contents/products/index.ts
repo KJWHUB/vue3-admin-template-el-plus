@@ -6,7 +6,8 @@ export const route: RouteRecordRaw = {
   component: () => import('@/pages/contents/products/index.vue'),
   meta: {
     menu: {
-      title: 'Products'
+      title: 'Products',
+      icon: 'StreamlineProductionBelt'
     }
   }
 }
