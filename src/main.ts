@@ -1,3 +1,6 @@
 import { app } from './app'
+import { setupMocks } from './mocks'
 
-app.mount('#app')
+setupMocks().then(() => {
+  app.mount('#app')
+})

@@ -14,3 +14,7 @@ export const API_URL = getEnvVar('VITE_APP_API_URL')
 
 export const isDevEnv = getEnvVar('DEV') // Vite feature
 export const isProdEnv = getEnvVar('PROD') // Vite feature
+
+export function isLocalHost() {
+  return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+}

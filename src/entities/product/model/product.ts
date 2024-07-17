@@ -15,6 +15,7 @@ export const useProductStore = defineStore('product', () => {
       name_like: name ? name : undefined,
       price_lte: price ? price : undefined
     }
+
     const response = await products.getProductList(request)
     items.value = response.data
   }
