@@ -32,6 +32,7 @@ const copyToClipboard = async (text: string) => {
       <!-- icons -->
       <main class="main">
         <h3>클릭시 component Name 이 복사 됩니다.</h3>
+        <p>커스텀 플러그인에 등록된 컴포넌트 입니다.</p>
         <ul>
           <li v-for="{ value, key } in icons" :key="key">
             <el-button class="button-wrap" @click="copyToClipboard(key)">
