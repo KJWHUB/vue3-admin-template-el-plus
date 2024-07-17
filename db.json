@@ -1,32 +1,29 @@
 {
-  "posts": [
-    {
-      "id": "1",
-      "title": "json-server",
-      "author": "typicode"
-    },
-    {
-      "id": "100",
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "example": [
-    {
-      "id": "1",
-      "title": "json-server",
-      "author": "typicode"
-    },
-    {
-      "id": "100",
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
   "auth": {
     "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
     "expiresIn": 3600
   },
+  "products": [
+    {
+      "id": "1",
+      "name": "iPad 4 Mini",
+      "price": 500.01,
+      "description": "Description for product 1",
+      "image": "https://picsum.photos/300/300"
+    },
+    {
+      "id": "2",
+      "name": "H&M T-Shirt White",
+      "price": 10.99
+    },
+    {
+      "id": "3",
+      "name": "Charli XCX - Sucker CD",
+      "price": 19.99,
+      "description": "Description for product 3",
+      "image": "https://picsum.photos/300/300"
+    }
+  ],
   "users": [
     {
       "date": "2016-05-02 0:00:00",
