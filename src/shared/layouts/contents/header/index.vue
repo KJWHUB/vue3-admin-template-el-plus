@@ -4,6 +4,7 @@ import { onMounted, ref } from 'vue'
 import { Fold } from '@element-plus/icons-vue'
 
 import LanguageSelector from '@/shared/components/language-selector/LanguageSelector.vue'
+import { isLocalHost } from '@/shared/config'
 import { useLayoutStore } from '@/shared/stores'
 
 import HeaderBreadcrumb from './HeaderBreadcrumb.vue'
@@ -36,6 +37,10 @@ onMounted(() => {
     <el-space size="large">
       <!-- search -->
       <!-- <HeaderSearch /> -->
+      <!-- icon preview -->
+      <template v-if="isLocalHost()">
+        <el-button @click="$router.push('/icon-preview')">Icon Preview</el-button>
+      </template>
       <!-- lang -->
       <LanguageSelector />
       <!-- user -->
