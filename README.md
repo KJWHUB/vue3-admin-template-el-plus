@@ -1,39 +1,31 @@
-# vue3-admin-temlate-el-plus
+# Vue3 Admin Template
 
-This template should help get you started developing with Vue 3 in Vite.
+본 템플릿은 Vue 3와 Vite를 사용하여 구성된 어드민 템플릿입니다. 이 템플릿은 [Feature-Sliced Design (FSD)](https://feature-sliced.design/docs/get-started/overview) 아키텍처를 적용하였습니다.
 
-## Recommended IDE Setup
+## 주요 특징
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- **로그인 화면**과 **메뉴 화면**이 기본적으로 구성되어 있습니다.
+- **Mock 서버**와의 통신 방법 및 **라우터 구성** 방법을 학습할 수 있습니다.
+- api 를 이용한 crud 구축의 예제가 있습니다.
 
-## Type Support for `.vue` Imports in TS
+## 로컬 개발 시작하기
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+개발서버 실행
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
 ```
-
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### 외부 api url 설정
 
-```sh
-npm run build
-```
+api url 은 env 파일의 VITE_APP_API_URL 의 값으로 지정됩니다.
+production, development 에 각각 지정하여 개발환경과 실제 프로덕션 환경을 구분할수 있습니다.
 
-### Lint with [ESLint](https://eslint.org/)
+api와 함께 개발시 local api url 을 할당할수 있습니다.
 
-```sh
-npm run lint
+프로젝트 루트 경로에 `.env.development.local` 파일을 추가하고 아래와 같이 API URL을 설정하세요. (\* 절대 .env.development.local 를 git 에 추가하면 안됩니다.)
+
+```env
+# API URL 설정 예시
+VITE_APP_API_URL=http://localhost:9999
 ```
