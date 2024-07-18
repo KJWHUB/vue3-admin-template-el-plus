@@ -2,6 +2,7 @@ import ContentsLayout from '@/shared/layouts/contents/index.vue'
 
 import { route as authRoute } from './auth'
 import { routes as contentsRoutes } from './contents'
+import { routes as errorRoute } from './error'
 import { route as iconPreviewRoute } from './icon-preview'
 import Routing from './index.vue'
 
@@ -16,7 +17,8 @@ export const routes: RouteRecordRaw[] = [
     children: contentsRoutes
   },
   authRoute,
-  iconPreviewRoute
+  iconPreviewRoute,
+  ...errorRoute
 ]
 
 export { Routing }
