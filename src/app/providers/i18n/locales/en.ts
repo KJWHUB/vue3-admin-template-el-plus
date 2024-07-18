@@ -7,6 +7,9 @@ export const en = {
     Services01: 'Services 01',
     Services02: 'Services 02',
     Services03: 'Services 03',
-    Users: 'Users'
+    Users: 'Users',
+    UserList: 'User List',
+    CreateUser: 'Create User',
+    ModifyUser: 'Modify User'
   }
 }

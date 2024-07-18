@@ -9,18 +9,79 @@ const allUsers = new Map([
   ['6', { id: '6', username: 'user5', email: 'user5@example.com' }]
 ])
 
+type AddUserRequestBody = {
+  params: {
+    username: string
+    email: string
+  }
+}
+
+type AddUserResponseBody = {
+  id: string
+}
+
+const baseUrl = '/api/users'
+
 export const handlers = [
   // 유저 목록 조회
-  http.get('/api/users', () => {
-    return HttpResponse.json(Array.from(allUsers.values()))
+  http.get(baseUrl, () => {
+    return HttpResponse.json(
+      Array.from(allUsers.values()).sort((a, b) => {
+        return Number(b.id) - Number(a.id)
+      })
+    )
   }),
   // 유저 조회
-  http.get('/api/user/:userId', ({ params }) => {
+  http.get(`${baseUrl}/:userId`, ({ params }) => {
+    console.log('params', params)
     const { userId } = params
     const user = allUsers.get(userId.toString())
     if (user) {
       return HttpResponse.json(user)
     }
     return new HttpResponse('not found', { status: 404 })
+  }),
+  // 유저 생성
+  http.post<any, AddUserRequestBody, AddUserResponseBody, '/api/users'>(
+    baseUrl,
+    async ({ request }) => {
+      const response = await request.json()
+      const user = response.params
+
+      console.log('user requsest', user)
+
+      const id = String(allUsers.size + 1)
+      allUsers.set(id, {
+        id,
+        username: user.username,
+        email: user.email
+      })
+      return HttpResponse.json({ id })
+    }
+  ),
+  // 유저 수정
+  http.put<
+    any,
+    {
+      params: {
+        email: string
+      }
+    },
+    AddUserResponseBody,
+    '/api/users/:userId'
+  >(`${baseUrl}/:userId`, async ({ params, request }) => {
+    const { userId } = params
+    const response = await request.json()
+
+    const user = response.params
+
+    const targetUser = allUsers.get(userId.toString())
+    if (targetUser) {
+      targetUser.email = user.email
+      // 성공 응답
+      return HttpResponse.json({ id: userId })
+    }
+    // 실패 응답
+    return HttpResponse.json(null, { status: 404 })
   })
 ]
