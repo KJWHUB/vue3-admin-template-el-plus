@@ -1,14 +1,23 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, toRaw } from 'vue'
 
 import { storeToRefs } from 'pinia'
 
 import { useProductStore } from '@/entities/product/model'
 import { Filter, Table } from '@/features/product'
 import type { TableItemDataType } from '@/features/product/model'
+import { useForm } from '@/shared/composables/useForm'
 
 const store = useProductStore()
+const { fetchAll } = store
 const { items } = storeToRefs(store)
+
+const { formData, formRef, onReset } = useForm({
+  createFormData: () => ({
+    name: '',
+    price: null
+  })
+})
 
 const products = computed<TableItemDataType[]>(() => {
   return items.value.map((item) => {
@@ -18,11 +27,26 @@ const products = computed<TableItemDataType[]>(() => {
     }
   })
 })
+
+const onFilter = () => {
+  console.log('Filter', formData)
+  fetchAll({
+    name: formData.value.name,
+    price: formData.value.price || undefined
+  })
+}
+
+onFilter()
 </script>
 
 <template>
   <main style="display: flex; gap: 1rem">
-    <Filter />
+    <Filter
+      v-model:form-data="formData"
+      v-model:form-ref="formRef"
+      @filter="onFilter"
+      @reset="onReset"
+    />
     <Table v-model="products" style="flex: 1" />
   </main>
 </template>

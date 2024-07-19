@@ -13,7 +13,7 @@ export type LoginForm = {
 const { hasRememberInfo, rememberInfo } = useAuthStore()
 const { login } = useAuth()
 
-const form = reactive<LoginForm>({
+const form: LoginForm = reactive({
   username: '',
   password: '',
   remember: false

@@ -1,43 +1,48 @@
 <script setup lang="ts">
-import { reactive, ref, toRaw } from 'vue'
-
-import { useProductStore } from '@/entities/product/model'
-
-import type { TableDataFilterForm } from '../../model'
 import type { FormInstance } from 'element-plus'
+import { onMounted, ref } from 'vue'
 
-const { fetchAll } = useProductStore()
+/**
+ * 상품 필터 폼 데이터
+ * @property {string} name - 상품명
+ * @property {number | null} price - 상품가격
+ */
+export interface FormData {
+  name: string
+  price: number | null
+}
 
-const formRef = ref<FormInstance>()
-const formData = reactive<TableDataFilterForm>({
-  name: '',
-  price: 0
+const formData = defineModel<FormData>('formData', {
+  required: true
 })
+const formRef = defineModel<FormInstance>('formRef')
 
-const onFilter = () => {
-  console.log('Filter', formData)
-  fetchAll(toRaw(formData))
-}
+defineEmits<{
+  /** 필터 버튼 클릭시 트리거 됩니다. */
+  (e: 'filter'): void
+  /** 리셋 버튼 클릭시 트리거 됩니다. */
+  (e: 'reset'): void
+}>()
 
-const onReset = () => {
-  formRef.value?.resetFields()
-}
+const innerRef = ref<FormInstance>()
 
-fetchAll(toRaw(formData))
+onMounted(() => {
+  formRef.value = innerRef.value
+})
 </script>
 
 <template>
   <el-card>
-    <el-form ref="formRef" :model="formData">
+    <el-form ref="innerRef" :model="formData">
       <el-form-item label="Name" prop="name">
         <el-input v-model="formData.name" placeholder="Name"></el-input>
       </el-form-item>
       <el-form-item label="Price" prop="price">
-        <el-input v-model="formData.price" placeholder="Price"></el-input>
+        <el-input-number v-model="formData.price" placeholder="Price"></el-input-number>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onFilter">Filter</el-button>
-        <el-button @click="onReset">Reset</el-button>
+        <el-button type="primary" @click="$emit('filter')">Filter</el-button>
+        <el-button @click="$emit('reset')">Reset</el-button>
       </el-form-item>
     </el-form>
   </el-card>
