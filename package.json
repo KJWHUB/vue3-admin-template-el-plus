@@ -15,7 +15,9 @@
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "st-json-server": "json-server --watch db.json --port 9000"
+    "st-json-server": "json-server --watch db.json --port 9000",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
@@ -30,7 +32,16 @@
     "vue-router": "^4.3.3"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^1.6.1",
     "@rushstack/eslint-patch": "^1.8.0",
+    "@storybook/addon-essentials": "^8.2.4",
+    "@storybook/addon-interactions": "^8.2.4",
+    "@storybook/addon-links": "^8.2.4",
+    "@storybook/addon-onboarding": "^8.2.4",
+    "@storybook/blocks": "^8.2.4",
+    "@storybook/test": "^8.2.4",
+    "@storybook/vue3": "^8.2.4",
+    "@storybook/vue3-vite": "^8.2.4",
     "@tsconfig/node20": "^20.1.4",
     "@types/node": "^20.14.5",
     "@vitejs/plugin-vue": "^5.0.5",
@@ -39,10 +50,12 @@
     "@vue/tsconfig": "^0.5.1",
     "eslint": "^8.57.0",
     "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-storybook": "^0.8.0",
     "eslint-plugin-vue": "^9.23.0",
     "msw": "^2.3.1",
     "npm-run-all2": "^6.2.0",
     "prettier": "^3.2.5",
+    "storybook": "^8.2.4",
     "typescript": "~5.4.0",
     "unplugin-auto-import": "^0.17.6",
     "unplugin-vue-components": "^0.27.0",
