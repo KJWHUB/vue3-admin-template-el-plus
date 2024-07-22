@@ -3,7 +3,7 @@ import { apiInstance } from '../base'
 import type { Server_User } from './models'
 import type { AxiosPromise } from 'axios'
 
-const BASE_URL = '/api/users'
+const BASE_URL = '/users'
 
 // 유저 목록 조회
 export const getUsers = (): AxiosPromise<Server_User[]> => {

@@ -2,7 +2,7 @@ import { ref } from 'vue'
 
 import { defineStore } from 'pinia'
 
-import { products } from '@/shared/api/json-server'
+import { msw } from '@/shared/api'
 import type { GetProductListParams } from '@/shared/api/json-server/products'
 import type { Server_Product } from '@/shared/api/json-server/products/models'
 
@@ -16,12 +16,12 @@ export const useProductStore = defineStore('product', () => {
       price_lte: price ? price : undefined
     }
 
-    const response = await products.getProductList(request)
+    const response = await msw.products.getProductList(request)
     items.value = response.data
   }
 
   async function fetchOne(id: string) {
-    const response = await products.getProductById({ productId: id })
+    const response = await msw.products.getProductById({ productId: id })
     currentItem.value = response.data
   }
 

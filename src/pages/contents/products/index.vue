@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, toRaw } from 'vue'
+import { computed } from 'vue'
 
 import { storeToRefs } from 'pinia'
 
@@ -20,6 +20,7 @@ const { formData, formRef, onReset } = useForm({
 })
 
 const products = computed<TableItemDataType[]>(() => {
+  console.log('Products', items.value)
   return items.value.map((item) => {
     return {
       ...item,
