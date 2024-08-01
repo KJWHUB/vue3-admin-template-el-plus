@@ -3,7 +3,7 @@ import { apiInstance } from '../base'
 import type { Server_User } from './models'
 import type { AxiosPromise } from 'axios'
 
-const BASE_URL = '/users'
+export const BASE_URL = '/users'
 
 // 유저 목록 조회
 export const getUsers = (): AxiosPromise<Server_User[]> => {
@@ -31,3 +31,5 @@ export function createUser(params: CreateUserParams) {
 export function modifyUserById(userId: string, params: { email: string }) {
   return apiInstance.put(`${BASE_URL}/${userId}`, { params })
 }
+
+export * as hook from './hook'

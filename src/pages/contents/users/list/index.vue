@@ -1,18 +1,15 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
-
 import { useUserStore } from '@/entities/user/model'
 
 const store = useUserStore()
-const { fetchAll } = store
-const { items } = storeToRefs(store)
+const { fetchAll, usersQuery } = store
 
 fetchAll()
 </script>
 
 <template>
   <el-card>
-    <el-table :data="items" :border="true">
+    <el-table v-loading="usersQuery.isLoading" :data="usersQuery.data" :border="true">
       <el-table-column prop="id" label="Id">
         <template #default="{ row }">
           <RouterLink :to="{ name: 'users-modify', params: { id: row.id } }">

@@ -1,4 +1,4 @@
-import { http, HttpResponse } from 'msw'
+import { delay, http, HttpResponse } from 'msw'
 
 const allUsers = new Map([
   ['1', { id: '1', username: 'admin user', email: 'admin@example.com' }],
@@ -10,10 +10,8 @@ const allUsers = new Map([
 ])
 
 type AddUserRequestBody = {
-  params: {
-    username: string
-    email: string
-  }
+  username: string
+  email: string
 }
 
 type AddUserResponseBody = {
@@ -24,7 +22,8 @@ const baseUrl = '/api/users'
 
 export const handlers = [
   // 유저 목록 조회
-  http.get(baseUrl, () => {
+  http.get(baseUrl, async () => {
+    await delay(1000 * 1)
     return HttpResponse.json(
       Array.from(allUsers.values()).sort((a, b) => {
         return Number(b.id) - Number(a.id)
@@ -45,16 +44,13 @@ export const handlers = [
   http.post<any, AddUserRequestBody, AddUserResponseBody, '/api/users'>(
     baseUrl,
     async ({ request }) => {
-      const response = await request.json()
-      const user = response.params
-
-      console.log('user requsest', user)
+      const req = await request.json()
 
       const id = String(allUsers.size + 1)
       allUsers.set(id, {
         id,
-        username: user.username,
-        email: user.email
+        username: req.username,
+        email: req.email
       })
       return HttpResponse.json({ id })
     }
@@ -63,21 +59,17 @@ export const handlers = [
   http.put<
     any,
     {
-      params: {
-        email: string
-      }
+      email: string
     },
     AddUserResponseBody,
     '/api/users/:userId'
   >(`${baseUrl}/:userId`, async ({ params, request }) => {
     const { userId } = params
-    const response = await request.json()
-
-    const user = response.params
+    const req = await request.json()
 
     const targetUser = allUsers.get(userId.toString())
     if (targetUser) {
-      targetUser.email = user.email
+      targetUser.email = req.email
       // 성공 응답
       return HttpResponse.json({ id: userId })
     }

@@ -1,22 +1,22 @@
-import { ref } from 'vue'
-
 import { defineStore } from 'pinia'
 
 import { msw } from '@/shared/api'
-import type { Server_User } from '@/shared/api/msw/users/models'
 
 export const useUserStore = defineStore('user', () => {
-  const items = ref<Server_User[]>([])
-  const currentItem = ref<Server_User>()
+  const usersQuery = msw.users.hook.useGetUsers()
+  const userByIdQuery = msw.users.hook.useGetUserById()
+  const userCreateQuery = msw.users.hook.useCreateUser()
+  const userModifyQuery = msw.users.hook.useModifyUserById()
+
+  const items = usersQuery.data
+  const currentItem = userByIdQuery.data
 
   async function fetchAll() {
-    const response = await msw.users.getUsers()
-    items.value = response.data
+    await usersQuery.fetchUsers()
   }
 
   async function fetchOne(id: string) {
-    const response = await msw.users.getUsersById({ userId: id })
-    currentItem.value = response.data
+    await userByIdQuery.fetchUserById(id)
   }
 
   async function fetchCreate(params: { name: string; email: string }) {
@@ -24,28 +24,24 @@ export const useUserStore = defineStore('user', () => {
       username: params.name,
       email: params.email
     }
-    const response = await msw.users.createUser(request)
+
+    const response = await userCreateQuery.createUser(request)
+
     console.log('유저 등록 성공', response)
   }
 
-  async function fetchModify(params: { email: string }) {
-    if (!currentItem.value) return
-    const response = await msw.users.modifyUserById(currentItem.value.id, params)
+  async function fetchModify(id: string, params: { email: string }) {
+    const response = await userModifyQuery.modifyUserById(id, params)
     console.log('유저 수정 성공', response)
-  }
-
-  function $reset() {
-    items.value = []
-    currentItem.value = undefined
   }
 
   return {
     items,
     currentItem,
+    usersQuery,
     fetchAll,
     fetchOne,
     fetchCreate,
-    fetchModify,
-    $reset
+    fetchModify
   }
 })

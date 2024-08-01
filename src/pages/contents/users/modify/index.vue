@@ -3,11 +3,12 @@ import { reactive } from 'vue'
 
 import { ElMessage } from 'element-plus'
 import { storeToRefs } from 'pinia'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 import { useUserStore } from '@/entities/user/model'
 
 const route = useRoute()
+const router = useRouter()
 const store = useUserStore()
 const { fetchOne, fetchModify } = store
 const { currentItem } = storeToRefs(store)
@@ -21,8 +22,9 @@ const formData = reactive({
 const editUser = async () => {
   console.log('Edit user')
   try {
-    await fetchModify({ email: formData.email })
+    await fetchModify(route.params.id.toString(), { email: formData.email })
     ElMessage.success('User edited')
+    router.push({ name: 'users-list' })
   } catch (error) {
     ElMessage.error('Error editing user')
   }
