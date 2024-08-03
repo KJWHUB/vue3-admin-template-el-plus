@@ -35,14 +35,14 @@ onMounted(() => {
 <template>
   <el-form :model="form" size="large" label-width="80px" label-position="top">
     <el-form-item prop="username">
-      <el-input v-model="form.username">
+      <el-input v-model="form.username" @keydown.enter="handleSubmit">
         <template #prefix>
           <el-icon><UserFilled /></el-icon>
         </template>
       </el-input>
     </el-form-item>
     <el-form-item prop="password">
-      <el-input type="password" v-model="form.password" show-password>
+      <el-input type="password" v-model="form.password" show-password @keydown.enter="handleSubmit">
         <template #prefix>
           <el-icon><MaterialSymbolsVpnKeyRounded /></el-icon>
         </template>
