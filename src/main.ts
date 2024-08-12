@@ -10,10 +10,8 @@ async function AppSetup() {
   try {
     await setupMocks()
     logSuccess('[App] Setup complete')
-    console.log('%c[App] Setup complete', 'color: limegreen; font-weight: bold;')
   } catch (error) {
     logError('[App] Setup failed')
-    console.error('%c[App] Setup failed', 'color: red; font-weight: bold;', error)
   }
   console.groupEnd()
 }
