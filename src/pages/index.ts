@@ -14,6 +14,9 @@ export const routes: RouteRecordRaw[] = [
     name: 'home',
     component: ContentsLayout,
     redirect: { name: 'dashboard' },
+    meta: {
+      requiresAuth: true
+    },
     children: contentsRoutes
   },
   authRoute,

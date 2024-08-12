@@ -1,5 +1,6 @@
 export * from './routing'
 export * from './translate'
+export * from './log'
 
 // 빈 value 제거
 export const filterNonEmptyQueryParamsDeep = (raw: any): any => {
