@@ -6,7 +6,8 @@ export const route: RouteRecordRaw = {
   component: () => import('@/pages/contents/dashboard/index.vue'),
   meta: {
     menu: {
-      title: 'Dashboard'
+      title: 'Dashboard',
+      icon: 'CarbonDashboard'
     }
   }
 }

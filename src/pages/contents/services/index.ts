@@ -12,7 +12,8 @@ export const route: RouteRecordRaw = {
   redirect: redirectToFirstChild,
   meta: {
     menu: {
-      title: 'Services'
+      title: 'Services',
+      icon: 'service'
     }
   },
   children: [service01, service02, service03]

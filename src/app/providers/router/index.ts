@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import { routes } from '@/pages'
-import { useAuthStore } from '@/shared/stores'
+
+import { authNavigationGuard } from './auth-navigation-guard'
 
 import './meta'
 
@@ -10,12 +11,4 @@ export const router = createRouter({
   routes
 })
 
-router.beforeEach((to) => {
-  const { isAuthenticated } = useAuthStore()
-  if (!isAuthenticated && to.name !== 'login') {
-    return { name: 'login' }
-  }
-  if (isAuthenticated && to.name === 'login') {
-    return { name: 'home' }
-  }
-})
+router.beforeEach(authNavigationGuard)
