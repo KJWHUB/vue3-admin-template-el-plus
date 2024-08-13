@@ -8,7 +8,7 @@ import src from './assets/404imgage.webp'
       <el-image :src="src" style="width: 50%" />
     </template>
     <template #extra>
-      <el-button type="primary" @click="$router.push({ name: 'home' })">Back</el-button>
+      <el-button type="primary" @click="$router.back()">Back</el-button>
     </template>
   </el-result>
 </template>

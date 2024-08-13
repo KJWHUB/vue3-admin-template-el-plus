@@ -14,7 +14,8 @@ export const route: RouteRecordRaw = {
     menu: {
       title: 'Services',
       icon: 'service'
-    }
+    },
+    permissions: ['GROUP1']
   },
   children: [service01, service02, service03]
 }

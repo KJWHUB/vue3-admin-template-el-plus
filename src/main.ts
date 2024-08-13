@@ -3,7 +3,7 @@ import { setupMocks } from './mocks'
 import { logError, logSuccess } from './shared/utils'
 
 /**
- *
+ * 앱 설정.
  */
 async function AppSetup() {
   console.group('[App] Setup')

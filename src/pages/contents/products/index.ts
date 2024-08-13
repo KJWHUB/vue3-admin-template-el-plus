@@ -8,6 +8,7 @@ export const route: RouteRecordRaw = {
     menu: {
       title: 'Products',
       icon: 'StreamlineProductionBelt'
-    }
+    },
+    permissions: ['GROUP1']
   }
 }
